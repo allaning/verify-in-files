@@ -7,3 +7,6 @@ require 'util'
 require 'rule'
 require 'check'
 require 'and'
+require 'has'
+require 'not'
+

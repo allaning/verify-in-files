@@ -34,10 +34,10 @@ module VerifyInFiles
           @and.run( lines )
           assert_equal(true, @and.result)
 
-          and2 = And.new
-          and2.rules << Rule.new( "tempor" )
-          and2.run( lines )
-          assert_equal(true, and2.result)
+          @and = And.new
+          @and.rules << Rule.new( "tempor" )
+          @and.run( lines )
+          assert_equal(true, @and.result)
         end
 
         def test_single_and_not_found
@@ -56,11 +56,11 @@ module VerifyInFiles
           @and.run( lines )
           assert_equal(true, @and.result)
 
-          and2 = And.new
-          and2.rules << Rule.new( "tempor" )
-          and2.rules << Rule.new( "felis" )
-          and2.run( lines )
-          assert_equal(true, and2.result)
+          @and = And.new
+          @and.rules << Rule.new( "tempor" )
+          @and.rules << Rule.new( "felis" )
+          @and.run( lines )
+          assert_equal(true, @and.result)
         end
 
         def test_double_and_valid_not_found
@@ -71,11 +71,11 @@ module VerifyInFiles
           @and.run( lines )
           assert_equal(false, @and.result)
 
-          and2 = And.new
-          and2.rules << Rule.new( "tempor" )
-          and2.rules << Rule.new( "untemporumandum" )
-          and2.run( lines )
-          assert_equal(false, and2.result)
+          @and = And.new
+          @and.rules << Rule.new( "tempor" )
+          @and.rules << Rule.new( "untemporumandum" )
+          @and.run( lines )
+          assert_equal(false, @and.result)
         end
 
       end

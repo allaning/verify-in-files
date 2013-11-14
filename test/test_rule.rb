@@ -17,13 +17,13 @@ module VerifyInFiles
 
         def test_single_rule_true
           text = "lorem ipsum"
-          @rule.pattern = "ipsum"
+          @rule.pattern = "lorem"
           @rule.run( text )
           assert_equal(true, @rule.result)
 
-          @rule.pattern = "blah"
+          @rule.pattern = "ipsum"
           @rule.run( text )
-          assert_equal(false, @rule.result)
+          assert_equal(true, @rule.result)
         end
 
         def test_single_rule_false
