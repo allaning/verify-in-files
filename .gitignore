@@ -3,6 +3,7 @@
 .bundle
 *.bundle
 .config
+*.swp
 coverage
 InstalledFiles
 lib/bundler/man
