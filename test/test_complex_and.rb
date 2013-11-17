@@ -8,6 +8,27 @@ module VerifyInFiles
       class TestAnd < Test::Unit::TestCase
         def setup
           @top = And.new
+          @tier2 = And.new
+          @tier3 = And.new
+          @tier4 = And.new
+          @tier5 = And.new
+        end
+
+        def create_five_valid_tiers
+          # First tier
+          @top.rules << Rule.new( "ipsum" )
+          # Second tier
+          @tier2.rules << Rule.new( "tempor" )
+          @top.rules << @tier2
+          # Third tier
+          @tier3.rules << Rule.new( "Donec" )
+          @tier2.rules << @tier3
+          # Add fourth tier
+          @tier4.rules << Rule.new( "sem" )
+          @tier3.rules << @tier4
+          # Add fifth tier
+          @tier5.rules << Rule.new( "magna" )
+          @tier4.rules << @tier5
         end
 
         def test_two_tier_till_fail_on_first
@@ -178,31 +199,29 @@ module VerifyInFiles
           assert_equal(false, @top.result)
         end
 
-        def test_four_tier_till_fail_on_fourth
+        def test_five_tier_till_fail_on_third
           lines = Util.get_file_as_array( $LOREM_IPSUM )
 
-          # First tier
-          @top.rules << Rule.new( "ipsum" )
-          # Second tier
-          tier2 = And.new
-          tier2.rules << Rule.new( "tempor" )
-          @top.rules << tier2
-          # Third tier
-          tier3 = And.new
-          tier3.rules << Rule.new( "Donec" )
-          tier2.rules << tier3
-          # Add fourth tier
-          tier4 = And.new
-          tier4.rules << Rule.new( "sem" )
-          tier3.rules << tier4
+          create_five_valid_tiers
+
+          # Add invalid to third tier
+          tier3b = And.new
+          tier3b.rules << Rule.new( "googleplex" )
+          @tier2.rules << tier3b
           # Check results
           @top.run( lines )
-          assert_equal(true, @top.result)
+          assert_equal(false, @top.result)
+        end
 
-          # Add invalid to fourth tier
-          tier4b = And.new
-          tier4b.rules << Rule.new( "Happy Birthday" )
-          tier3.rules << tier4b
+        def test_five_tier_till_fail_on_fifth
+          lines = Util.get_file_as_array( $LOREM_IPSUM )
+
+          create_five_valid_tiers
+
+          # Add invalid to fifth tier
+          tier5b = And.new
+          tier5b.rules << Rule.new( "Happy Birthday" )
+          @tier4.rules << tier5b
           # Check results
           @top.run( lines )
           assert_equal(false, @top.result)
