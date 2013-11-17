@@ -203,6 +203,9 @@ module VerifyInFiles
           lines = Util.get_file_as_array( $LOREM_IPSUM )
 
           create_five_valid_tiers
+          # Check results
+          @top.run( lines )
+          assert_equal(true, @top.result)
 
           # Add invalid to third tier
           tier3b = And.new

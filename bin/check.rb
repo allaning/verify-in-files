@@ -32,7 +32,14 @@ module VerifyInFiles
       end
     end
 
-    # Takes input string or string array and checks if all rules are true
+    # Check if all rules are true
+    def check_results
+      self.result = true
+      rules.each { |rule| self.result = false unless rule.result == true }
+    end
+
+    # Takes input string or string array and then checks rules to see if
+    # result is true or false
     def run( lines )
       unless rules.size > 0
         puts "run: Error: No rules defined."
@@ -50,9 +57,7 @@ module VerifyInFiles
         return false
       end
 
-      # Check results
-      self.result = true
-      rules.each { |rule| self.result = false unless rule.result == true }
+      check_results
     end
 
   end
