@@ -28,10 +28,7 @@ module VerifyInFiles
       end
 
       rules.each do |rule|
-        # Run rules that did not already pass
-        if rule.result == false
-          rule.run( str )
-        end
+        rule.run( str )
       end
     end
 
@@ -42,7 +39,7 @@ module VerifyInFiles
         return false
       end
 
-      # Check unfulfilled rules against input text
+      # Check rules against input text
       if lines.kind_of?(String)
         check_string( lines )
       elsif lines.kind_of?(Array)

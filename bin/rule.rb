@@ -16,10 +16,10 @@ module VerifyInFiles
 
     # Takes input string and checks if all rules are true
     def run( text )
-      self.result = false
-      if self.pattern == ""
-        return
-      end
+      # Check if this rule already evaluated to true
+      return if self.result == true
+      # Check if input is empty
+      return if self.pattern == ""
 
       if self.should_exist
         self.result = true if text.include?( self.pattern )
