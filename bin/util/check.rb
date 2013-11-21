@@ -20,18 +20,6 @@ module VerifyInFiles
       rules.each { |rule| rule.result = false }
     end
 
-    # Check if a single string matches the required rules
-    def check_string( str )
-      unless str.kind_of?(String)
-        puts "check_string: Error: Input must be a string."
-        return false
-      end
-
-      rules.each do |rule|
-        rule.run( str )
-      end
-    end
-
     # Check if all rules are true
     def check_results
       self.result = true
@@ -47,15 +35,7 @@ module VerifyInFiles
       end
 
       # Check rules against input text
-      if lines.kind_of?(String)
-        check_string( lines )
-      elsif lines.kind_of?(Array)
-        reset_rule_results
-        lines.each { |line| check_string( line ) }
-      else
-        puts "run: Received invalid input of type: #{lines.class?}"
-        return false
-      end
+      rules.each { |rule| rule.run(lines) }
 
       check_results
     end

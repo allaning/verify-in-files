@@ -47,6 +47,22 @@ module VerifyInFiles
           assert_equal(true, @top.result)
         end
 
+        def test_five_tiers_fail_on_fifth
+          lines = Util.get_file_as_array( $LOREM_IPSUM )
+
+          create_five_invalid_tiers
+          # Check results
+          @top.run( lines )
+          assert_equal(false, @top.result)
+
+          # Add valid rule to fifth tier
+          tier5b = Rule.new( "lorem" )
+          @tier4.rules << tier5b
+          # Check results
+          @top.run( lines )
+          assert_equal(true, @top.result)
+        end
+
       end
     end
   end

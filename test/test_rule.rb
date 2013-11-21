@@ -22,6 +22,7 @@ module VerifyInFiles
           assert_equal(true, @rule.result)
 
           @rule.pattern = "ipsum"
+          @rule.result = false
           @rule.run( text )
           assert_equal(true, @rule.result)
         end
@@ -34,6 +35,7 @@ module VerifyInFiles
           assert_equal(false, @rule.result)
 
           @rule.pattern = "there"
+          @rule.result = false
           @rule.run( text )
           assert_equal(false, @rule.result)
         end

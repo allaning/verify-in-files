@@ -10,9 +10,11 @@ module VerifyInFiles
       self.result = false
     end
 
-    # Takes input string and checks if rule is true
-    def run( text )
-      return !super( text )
+    # Check each string in string array against rule
+    def check_array( lines )
+      status = true
+      lines.each { |line| status = false unless check_string(line) }
+      return status
     end
 
   end
