@@ -4,6 +4,7 @@ module VerifyInFiles
   # A given pattern is expected NOT to exist in a specified string.
   class Not < Rule
 
+    # Initialize rule with default that pattern is NOT expected
     def initialize( pattern_ = "" )
       self.pattern = pattern_
       self.should_exist = false

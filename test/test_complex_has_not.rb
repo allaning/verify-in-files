@@ -45,9 +45,7 @@ module VerifyInFiles
 
           # Add fail case to And leg
           tier2and5 = Has.new( "lkajsdklnmasdlkfj" )
-          tier2and6 = Has.new( "ipsummmmmm" )
           @tier2and.rules << tier2and5
-          @tier2and.rules << tier2and6
           # Check results
           @top.run( lines )
           assert_equal(false, @top.result)
