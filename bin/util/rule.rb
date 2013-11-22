@@ -6,7 +6,7 @@ module VerifyInFiles
   # The default behavior is that the specified pattern
   # should exist.
   class Rule
-    @@DEBUG = true
+    @@DEBUG = false
     attr_accessor :pattern, :should_exist, :result
 
     def initialize( pattern_ = "", should_exist_ = true )
