@@ -9,7 +9,7 @@ module VerifyInFiles
     @@DEBUG = false
     attr_accessor :pattern, :result
 
-    def initialize( pattern_ = "", should_exist_ = true )
+    def initialize( pattern_ = "" )
       self.pattern = pattern_
       self.result = false
     end
