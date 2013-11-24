@@ -7,11 +7,10 @@ module VerifyInFiles
   # should exist.
   class Rule
     @@DEBUG = false
-    attr_accessor :pattern, :should_exist, :result
+    attr_accessor :pattern, :result
 
     def initialize( pattern_ = "", should_exist_ = true )
       self.pattern = pattern_
-      self.should_exist = should_exist_
       self.result = false
     end
 
@@ -27,14 +26,13 @@ module VerifyInFiles
 
     # Check if a single string matches the required rules
     def check_string( str )
-      return false unless validate_string(str)
+      result = false
+      return result unless validate_string(str)
 
-      if self.should_exist
-        return true if str.include?( self.pattern )
-      else
-        return true unless str.include?( self.pattern )
+      if str.include?( self.pattern )
+        result = true
       end
-      return false
+      return result
     end
 
     # Check each string in string array against rule

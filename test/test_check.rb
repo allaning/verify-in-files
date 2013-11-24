@@ -53,14 +53,6 @@ module VerifyInFiles
           assert_equal(false, @check.result)
         end
 
-        def test_single_check_should_not_exist
-          lines = Util.get_file_as_array( $LOREM_IPSUM )
-
-          @check.rules << Rule.new( "should not be found", false )
-          @check.run( lines )
-          assert_equal(true, @check.result)
-        end
-
       end
     end
   end

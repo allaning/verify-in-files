@@ -11,12 +11,5 @@ module VerifyInFiles
       return lines
     end
 
-    def self.get_file_as_string( file_name )
-      file = File.open( file_name )
-      text = file.read
-      file.close
-      return text
-    end
-
   end
 end

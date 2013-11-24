@@ -11,7 +11,6 @@ module VerifyInFiles
 
         def test_create_has_rule
           assert_equal("", @has_rule.pattern)
-          assert_equal(true, @has_rule.should_exist)
           assert_equal(false, @has_rule.result)
         end
 

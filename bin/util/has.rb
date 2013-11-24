@@ -8,7 +8,6 @@ module VerifyInFiles
     # Initialize rule with default that pattern is expected
     def initialize( pattern_ = "" )
       self.pattern = pattern_
-      self.should_exist = true
       self.result = false
     end
 
