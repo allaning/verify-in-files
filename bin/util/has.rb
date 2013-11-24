@@ -11,5 +11,9 @@ module VerifyInFiles
       self.result = false
     end
 
+    def to_s
+      "Has: #{pattern}"
+    end
+
   end
 end

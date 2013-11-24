@@ -1,3 +1,6 @@
-And
-  Rule : "lorem"
-  Rule : "ipsum"
+{"And": {
+  "rules": [
+  {"Has": "lorem"},
+  {"Has": "ipsum"}
+  ]
+}}

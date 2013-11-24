@@ -4,6 +4,10 @@ module VerifyInFiles
   # must equate to true for result to be true.
   class And < Check
 
+    def to_s
+      str = "And: {"
+      rules.each { |rule| str += "#{rule.to_s}," }
+      str += "}"
+    end
 
-  end
-end
+  end end

@@ -28,5 +28,9 @@ module VerifyInFiles
       return status
     end
 
+    def to_s
+      "Not: #{pattern}"
+    end
+
   end
 end

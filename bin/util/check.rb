@@ -7,7 +7,7 @@ module VerifyInFiles
   class Check
     attr_accessor :rules, :result
 
-    def initialize
+    def initialize( rules = [] )
       self.rules = []
       self.result = false
     end

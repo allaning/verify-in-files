@@ -1,0 +1,10 @@
+--- !ruby/object:VerifyInFiles::And
+rules:
+- !ruby/object:VerifyInFiles::Rule
+  pattern: ipsum
+- !ruby/object:VerifyInFiles::And
+  rules:
+  - !ruby/object:VerifyInFiles::Rule
+    pattern: tempor
+  - !ruby/object:VerifyInFiles::Rule
+    pattern: varius

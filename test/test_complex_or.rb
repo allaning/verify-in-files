@@ -3,7 +3,6 @@ require_relative 'helper'
 module VerifyInFiles
   class Or
     module TestComplexOr
-      $LOREM_IPSUM = "test/data/lorem_ipsum.txt"
 
       class TestAnd < Test::Unit::TestCase
         def setup

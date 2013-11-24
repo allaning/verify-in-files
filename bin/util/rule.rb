@@ -61,5 +61,9 @@ module VerifyInFiles
       puts "#{self.result.to_s.upcase}: #{self.class}: #{self.pattern}" if @@DEBUG == true
     end
 
+    def to_s
+      "Rule: #{pattern}"
+    end
+
   end
 end
