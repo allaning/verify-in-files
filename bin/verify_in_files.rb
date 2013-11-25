@@ -12,7 +12,7 @@ module VerifyInFiles
       if file_name.include?( ".json" )
         require 'json'
         JSON.parse( File.read(file_name) )
-      elsif file_name.match( /.*\.yml|.*\.yaml/ )
+      elsif file_name.match( /.*\.yml$|.*\.yaml$/ )
         require 'yaml'
         YAML::load( File.read(file_name) )
       end
