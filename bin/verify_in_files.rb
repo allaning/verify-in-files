@@ -7,11 +7,12 @@ module VerifyInFiles
     # Read the file containing verification criteria
     def read_checks_and_rules( file_name )
       return unless file_name.kind_of?(String)
+      return unless File.exists?( file_name )
 
       if file_name.include?( ".json" )
         require 'json'
         JSON.parse( File.read(file_name) )
-      elsif file_name.include? ".yaml"
+      elsif file_name.match( /.*\.yml|.*\.yaml/ )
         require 'yaml'
         YAML::load( File.read(file_name) )
       end

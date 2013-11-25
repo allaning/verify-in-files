@@ -8,9 +8,8 @@ module VerifyInFiles
 
         def test_parse_yaml
           vif = Verifier.new
-          top = vif.read_checks_and_rules "test/data/simple_rules.yaml"
+          top = vif.read_checks_and_rules "test/data/simple_rules.yml"
           assert_not_equal( nil, top )
-          puts top
 
           lines = Util.get_file_as_array( $LOREM_IPSUM )
           top.run( lines )
