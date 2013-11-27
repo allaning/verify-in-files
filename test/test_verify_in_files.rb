@@ -4,7 +4,7 @@ module VerifyInFiles
   class Verifier
     module TestVerify
 
-      class TestVerify< Test::Unit::TestCase
+      class TestVerify < Test::Unit::TestCase
 
         def test_parse_yaml
           vif = Verifier.new
@@ -14,6 +14,18 @@ module VerifyInFiles
           lines = Util.get_file_as_array( $LOREM_IPSUM )
           top.run( lines )
           assert_equal(true, top.result)
+
+          top.rules << Not.new("ohayoogozaimasu")
+          top.run( lines )
+          assert_equal(true, top.result)
+
+          top.rules << Has.new("felis")
+          top.run( lines )
+          assert_equal(true, top.result)
+
+          top.rules << Not.new("gravida")
+          top.run( lines )
+          assert_equal(false, top.result)
         end
 
       end
