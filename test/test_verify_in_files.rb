@@ -11,9 +11,9 @@ module VerifyInFiles
           top = vif.read_checks_and_rules "test/data/simple_rules.json"
           assert_not_equal( nil, top )
 
-#          lines = Util.get_file_as_array( $LOREM_IPSUM )
-#          top.run( lines )
-#          assert_equal(true, top.result)
+          lines = Util.get_file_as_array( $LOREM_IPSUM )
+          top.run( lines )
+          assert_equal(true, top.result)
         end
 
         def test_parse_yaml

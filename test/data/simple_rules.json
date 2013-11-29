@@ -1,5 +1,6 @@
 {"And": [
   {"Has": "lorem"},
+  {"Not": "foobar"},
   {"Has": "ipsum"}
   ]
 }
