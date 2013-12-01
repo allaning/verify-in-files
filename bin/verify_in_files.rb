@@ -1,3 +1,4 @@
+require 'json'
 module VerifyInFiles
 
   # Reads file containing verification critera and checks against
@@ -5,7 +6,7 @@ module VerifyInFiles
   class Verifier
     @@DEBUG = true
 
-    # Creates object based on hash key
+    # Receives a hash and creates an object based on the hash key
     def create( hash, parent )
       if hash.has_key? 'And'
         puts "And" if @@DEBUG
@@ -28,12 +29,15 @@ module VerifyInFiles
       end
     end
 
-    # Parse the json object
-    def process( json, parent )
-      if json.kind_of? Array
-        json.each { |obj| process obj, parent }
-      elsif json.kind_of? Hash
-        create( json, parent )
+    # Parses an object heirarchy based on whether function receives
+    # an array (i.e. multiple objects at given level) or
+    # a hash (i.e. single object at given level)
+    def process( tier, parent )
+      if tier.kind_of? Array
+        # Recurse for each object
+        tier.each { |obj| process(obj, parent) }
+      elsif tier.kind_of? Hash
+        create( tier, parent )
       end
     end
 
@@ -43,15 +47,43 @@ module VerifyInFiles
       return unless File.exists?( file_name )
 
       if file_name.include?( ".json" )
-        require 'json'
-        result = JSON.parse( File.read(file_name) )
-        top = And.new
-        puts "\nParse JSON" if @@DEBUG
-        process( result, top )
+        json = File.read(file_name)
+        if is_valid(json)
+          puts "\nReading JSON file: #{file_name}"
+          result = JSON.parse( json )
+          top = And.new
+          process( result, top )
+          puts "\nResult: #{display_yaml(top)}" if @@DEBUG
+        end
         top
       elsif file_name.match( /.*\.yml$|.*\.yaml$/ )
         require 'yaml'
         YAML::load( File.read(file_name) )
+      end
+    end
+
+    # Show object in YAML
+    def display_yaml( obj )
+      require 'yaml'
+      puts YAML::dump(obj)
+    end
+
+    # Check if a string is in JSON format
+    def is_json?( str )
+      begin
+        !!JSON.parse(str)
+      rescue
+        false
+      end
+    end
+
+    # Validates format of input string
+    def is_valid( str )
+      if self.is_json?(str)
+        true
+      else
+        puts "\nERROR: Not in JSON format" unless self.is_json?(str)
+        false
       end
     end
 

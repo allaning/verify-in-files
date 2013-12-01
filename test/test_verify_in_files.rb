@@ -6,7 +6,7 @@ module VerifyInFiles
 
       class TestVerify < Test::Unit::TestCase
 
-        def test_parse_json
+        def test_parse_simple_json
           vif = Verifier.new
           top = vif.read_checks_and_rules "test/data/simple_rules.json"
           assert_not_equal( nil, top )
@@ -16,7 +16,17 @@ module VerifyInFiles
           assert_equal(true, top.result)
         end
 
-        def test_parse_yaml
+        def test_parse_mixed_two_tier_json
+          vif = Verifier.new
+          top = vif.read_checks_and_rules "test/data/mixed_two_tier.json"
+          assert_not_equal( nil, top )
+
+          lines = Util.get_file_as_array( $LOREM_IPSUM )
+          top.run( lines )
+          assert_equal(true, top.result)
+        end
+
+        def test_parse_simple_yaml
           vif = Verifier.new
           top = vif.read_checks_and_rules "test/data/simple_rules.yml"
           assert_not_equal( nil, top )

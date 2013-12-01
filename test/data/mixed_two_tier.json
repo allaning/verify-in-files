@@ -1,0 +1,9 @@
+{"And": [
+  {"Has": "lorem"},
+  {"Or": [
+    {"Has": "faucibus"},
+    {"Has": "foobarus"}
+  ]},
+  {"Has": "ipsum"}
+  ]
+}
