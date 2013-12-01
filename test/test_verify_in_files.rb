@@ -24,6 +24,14 @@ module VerifyInFiles
           lines = Util.get_file_as_array( $LOREM_IPSUM )
           top.run( lines )
           assert_equal(true, top.result)
+
+          top.rules << Has.new("adipiscing")
+          top.run( lines )
+          assert_equal(true, top.result)
+
+          top.rules << Has.new("oompaloompah")
+          top.run( lines )
+          assert_equal(false, top.result)
         end
 
         def test_parse_simple_yaml
