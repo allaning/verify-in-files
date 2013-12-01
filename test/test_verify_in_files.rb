@@ -25,6 +25,14 @@ module VerifyInFiles
           top.run( lines )
           assert_equal(true, top.result)
 
+          top.rules << Not.new("ohayoogozaimasu")
+          top.run( lines )
+          assert_equal(true, top.result)
+
+          top.rules << Has.new("felis")
+          top.run( lines )
+          assert_equal(true, top.result)
+
           top.rules << Has.new("adipiscing")
           top.run( lines )
           assert_equal(true, top.result)

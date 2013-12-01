@@ -1,9 +1,17 @@
-{"And": [
-  {"Has": "lorem"},
+[
+  {"And": [
+    {"Has": "lorem"},
+    {"Or": [
+      {"Has": "malesuada"},
+      {"Has": "faucibus"},
+      {"Has": "foobarus"}
+    ]},
+    {"Has": "ipsum"}
+    ]
+  },
   {"Or": [
-    {"Has": "faucibus"},
-    {"Has": "foobarus"}
-  ]},
-  {"Has": "ipsum"}
-  ]
-}
+    {"Has": "magna"},
+    {"Has": "aabbccdd"}
+    ]
+  }
+]
