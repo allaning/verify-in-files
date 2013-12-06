@@ -46,7 +46,7 @@ module VerifyInFiles
       return unless file_name.kind_of?(String)
       return unless File.exists?( file_name )
 
-      if file_name.include?( ".json" )
+      if File.extname(file_name) == ".json"
         json = File.read(file_name)
         if is_valid(json)
           puts "\nReading JSON file: #{file_name}"
@@ -56,7 +56,7 @@ module VerifyInFiles
           puts "\nResult: #{display_yaml(top)}" if @@DEBUG
         end
         top
-      elsif file_name.match( /.*\.yml$|.*\.yaml$/ )
+      elsif File.extname(file_name) == ".yml" || File.extname(file_name) == ".yaml"
         require 'yaml'
         YAML::load( File.read(file_name) )
       end
