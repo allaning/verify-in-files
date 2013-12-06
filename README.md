@@ -10,15 +10,18 @@ string C, etc.).
 Rules may be specified as a heirarchy of AND and OR conditions containing one
 or more HAS or NOT strings, as desired.  The rules can be in JSON or YAML format.  Below is an example of a simple set of rules in JSON format.
 
+```
 {"And": [
   {"Has": "lorem"},
   {"Has": "ipsum"}
   ]
 }
+```
 
 This says that a text file must contain the strings "lorem" and "ipsum" in
 order to pass.
 
+```
 [
   {"And": [
     {"Has": "lorem"},
@@ -37,6 +40,7 @@ order to pass.
     ]
   }
 ]
+```
 
 This contains two conditions at the top level--And and Or--each with nested
 rules within them.  In JSON, curly braces represent an object, which square
