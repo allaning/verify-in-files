@@ -12,5 +12,5 @@ require 'util/and'
 require 'util/or'
 require 'util/has'
 require 'util/not'
-require 'verify_in_files'
+require 'util/abstract_criteria_factory'
 

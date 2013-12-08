@@ -4,7 +4,7 @@ require 'optparse'
 module VerifyInFiles
 
   # Create verification instances
-  class Factory
+  class AbstractCriteriaFactory
     @@DEBUG = true
 
     # Receives a hash and creates an object based on the hash key
@@ -61,6 +61,32 @@ module VerifyInFiles
       end
     end
 
+    # Read the file containing verification criteria
+    def read_checks_and_rules( file_name )
+      return unless file_name.kind_of?(String)
+      return unless File.exists?( file_name )
+
+      if File.extname(file_name) == ".json"
+        json = File.read(file_name)
+        if is_valid(json)
+          puts "\nReading JSON file: #{file_name}"
+          result = JSON.parse( json )
+          top = And.new
+          process( result, top )
+          puts "\n#{display_yaml(top)}" if @@DEBUG
+        end
+        top
+      elsif File.extname(file_name) == ".yml" || File.extname(file_name) == ".yaml"
+        require 'yaml'
+        YAML::load( File.read(file_name) )
+      end
+    end
+
+    # Show object in YAML
+    def display_yaml( obj )
+      require 'yaml'
+      puts YAML::dump(obj)
+    end
 
   end
 end

@@ -1,6 +1,6 @@
 require 'json'
-require_relative 'options'
-require_relative 'factory'
+require_relative 'util/options'
+require_relative 'util/abstract_criteria_factory'
 require_relative 'util/and'
 require_relative 'util/or'
 require_relative 'util/has'
@@ -12,34 +12,6 @@ module VerifyInFiles
   # input files
   class Verifier
     @@DEBUG = true
-
-    # Read the file containing verification criteria
-    def read_checks_and_rules( file_name )
-      return unless file_name.kind_of?(String)
-      return unless File.exists?( file_name )
-
-      factory = Factory.new
-      if File.extname(file_name) == ".json"
-        json = File.read(file_name)
-        if factory.is_valid(json)
-          puts "\nReading JSON file: #{file_name}"
-          result = JSON.parse( json )
-          top = And.new
-          factory.process( result, top )
-          puts "\n#{display_yaml(top)}" if @@DEBUG
-        end
-        top
-      elsif File.extname(file_name) == ".yml" || File.extname(file_name) == ".yaml"
-        require 'yaml'
-        YAML::load( File.read(file_name) )
-      end
-    end
-
-    # Show object in YAML
-    def display_yaml( obj )
-      require 'yaml'
-      puts YAML::dump(obj)
-    end
 
     # Get target file name
     def get_target_file_name
@@ -72,7 +44,8 @@ module VerifyInFiles
     # Get verification criteria
     def get_criteria
       unless @options.criteria_file == ""
-        @top = read_checks_and_rules( @options.criteria_file )
+        factory = AbstractCriteriaFactory.new
+        @top = factory.read_checks_and_rules( @options.criteria_file )
       end
       if @top == nil
         puts "\nInvalid verification criteria specified."
@@ -96,7 +69,9 @@ module VerifyInFiles
         if @target.kind_of? String
           @top.run @target
           puts "PASS" if @top.result == true
+          # TODO: Process results
         end
+        # TODO: Process multiple target files
       end
     end
 
@@ -104,5 +79,5 @@ module VerifyInFiles
 end
 
 verify = VerifyInFiles::Verifier.new
-#verify.run
+verify.run
 
