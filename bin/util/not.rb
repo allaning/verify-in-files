@@ -1,3 +1,5 @@
+require_relative 'rule'
+
 module VerifyInFiles
 
   # Single rule to be checked against an input string.

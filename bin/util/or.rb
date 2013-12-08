@@ -1,3 +1,5 @@
+require_relative 'check'
+
 module VerifyInFiles
 
   # Similar to a boolean-OR, all checks within this class
