@@ -1,5 +1,9 @@
 require 'json'
 require 'optparse'
+require_relative 'and'
+require_relative 'or'
+require_relative 'has'
+require_relative 'not'
 
 module VerifyInFiles
 

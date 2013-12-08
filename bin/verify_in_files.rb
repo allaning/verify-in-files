@@ -1,10 +1,6 @@
 require 'json'
 require_relative 'util/options'
 require_relative 'util/abstract_criteria_factory'
-require_relative 'util/and'
-require_relative 'util/or'
-require_relative 'util/has'
-require_relative 'util/not'
 
 module VerifyInFiles
 
