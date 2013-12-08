@@ -30,7 +30,12 @@ module VerifyInFiles
 
       end
 
-      opt_parser.parse! argv
+      begin
+        opt_parser.parse! argv
+      rescue OptionParser::ParseError => e
+        puts e
+        puts opt_parser.help
+      end
     end
 
   end

@@ -1,4 +1,5 @@
 require 'json'
+require_relative 'util/util'
 require_relative 'util/options'
 require_relative 'util/abstract_criteria_factory'
 
@@ -35,10 +36,12 @@ module VerifyInFiles
           exit
         end
       end
+      puts "Target file(s): #{@target}" if @@DEBUG
     end
 
     # Get verification criteria
     def get_criteria
+      puts "Criteria file: #{@options.criteria_file}" if @@DEBUG
       unless @options.criteria_file == ""
         factory = AbstractCriteriaFactory.new
         @top = factory.read_checks_and_rules( @options.criteria_file )
@@ -63,11 +66,18 @@ module VerifyInFiles
 
       unless @top == nil
         if @target.kind_of? String
-          @top.run @target
-          puts "PASS" if @top.result == true
-          # TODO: Process results
+          lines = Util.get_file_as_array( @target )
+          @top.run lines
         end
         # TODO: Process multiple target files
+        # TODO: Process multiple results
+        if @top.result == true
+          puts "PASS"
+        else
+          puts "FAIL"
+        end
+      else
+        puts "Error loading verification criteria from: #{@options.criteria_file}"
       end
     end
 

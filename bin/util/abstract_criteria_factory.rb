@@ -1,4 +1,5 @@
 require 'json'
+require 'yaml'
 require 'optparse'
 require_relative 'and'
 require_relative 'or'
@@ -77,18 +78,17 @@ module VerifyInFiles
           result = JSON.parse( json )
           top = And.new
           process( result, top )
-          puts "\n#{display_yaml(top)}" if @@DEBUG
         end
-        top
       elsif File.extname(file_name) == ".yml" || File.extname(file_name) == ".yaml"
-        require 'yaml'
-        YAML::load( File.read(file_name) )
+        top = YAML::load( File.read(file_name) )
       end
+
+      puts "\n#{display_yaml(top)}" if @@DEBUG
+      top
     end
 
     # Show object in YAML
     def display_yaml( obj )
-      require 'yaml'
       puts YAML::dump(obj)
     end
 
