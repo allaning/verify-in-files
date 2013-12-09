@@ -55,5 +55,9 @@ Usage: verify_in_files [options]
     -h, --help                       Show this message
 ```
 
-NOTE: This project is in progress.
+## Example
+The following example shows how to verify the contents of "lorem_ipsum.txt" using rules in "rules.json"
 
+```
+$ ruby bin/verify_in_files.rb --file=data/lorem_ipsum.txt --rules=data/rules.json
+```
