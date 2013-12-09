@@ -13,17 +13,17 @@ module VerifyInFiles
     # Get target file name
     def get_target_file_name
       unless @options.target == ""
-        @target = @options.target
+        target = @options.target
       end
-      if @target == nil
+      if target == nil
         puts "\nMust specify target file(s)."
         exit
       end
 
-      if @target.include? ','
+      if target.include? ','
         # Multiple files specified
-        @target = @target.split ','
-        @target.each do |file|
+        target = target.split ','
+        target.each do |file|
           unless File.exists?(file)
             puts "Cannot find file: #{file}"
             exit
@@ -31,12 +31,13 @@ module VerifyInFiles
         end
       else
         # Only one file specified
-        unless File.exists?(@target)
-          puts "Cannot find file: #{@target}"
+        unless File.exists?(target)
+          puts "Cannot find file: #{target}"
           exit
         end
       end
-      puts "Target file(s): #{@target}" if @@DEBUG
+      puts "Target file(s): #{target}" if @@DEBUG
+      target
     end
 
     # Get verification criteria
@@ -44,12 +45,13 @@ module VerifyInFiles
       puts "Criteria file: #{@options.criteria_file}" if @@DEBUG
       unless @options.criteria_file == ""
         factory = AbstractCriteriaFactory.new
-        @top = factory.read_checks_and_rules( @options.criteria_file )
+        top = factory.read_checks_and_rules( @options.criteria_file )
       end
-      if @top == nil
+      if top == nil
         puts "\nInvalid verification criteria specified."
         exit
       end
+      top
     end
 
     # Get application parameters
@@ -61,17 +63,32 @@ module VerifyInFiles
     # Run rules against target file(s)
     def run
       self.get_params
-      self.get_target_file_name
-      self.get_criteria
+      @target = self.get_target_file_name
+      @top = self.get_criteria
 
       unless @top == nil
+        result = true
         if @target.kind_of? String
+          puts "Processing file: #{@target}"
           lines = Util.get_file_as_array( @target )
           @top.run lines
+          result = @top.result
+        else
+          @target.each do |file|
+            print "Processing file: #{file}... "
+            lines = Util.get_file_as_array( file )
+            @top.reset_rule_results
+            @top.run lines
+            result = false unless @top.result == true
+            if @top.result
+              puts "[Pass]"
+            else
+              puts "[Fail]"
+            end
+          end
         end
-        # TODO: Process multiple target files
-        # TODO: Process multiple results
-        if @top.result == true
+
+        if result == true
           puts "PASS"
         else
           puts "FAIL"

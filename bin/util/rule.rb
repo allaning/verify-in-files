@@ -14,6 +14,10 @@ module VerifyInFiles
       self.result = false
     end
 
+    def reset_rule_results
+      self.result = false
+    end
+
     # Return true if input is a String; Else, print error and return false
     def validate_string( str )
       if str.kind_of?(String)

@@ -17,7 +17,7 @@ module VerifyInFiles
     end
 
     def reset_rule_results
-      rules.each { |rule| rule.result = false }
+      rules.each { |rule| rule.reset_rule_results }
     end
 
     # Check if all rules are true
