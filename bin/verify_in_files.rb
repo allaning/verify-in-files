@@ -10,8 +10,15 @@ module VerifyInFiles
   class Verifier
     @@DEBUG = true
 
+    def initialize(target=nil, criteria=nil)
+      @options ||= Options.new
+      @target = get_target_file_name target unless target == nil
+      @top = get_criteria criteria unless criteria == nil
+    end
+
     # Get target file name
-    def get_target_file_name
+    def get_target_file_name( target=nil )
+      @options.target = target unless target == nil
       unless @options.target == ""
         target = @options.target
       end
@@ -41,7 +48,8 @@ module VerifyInFiles
     end
 
     # Get verification criteria
-    def get_criteria
+    def get_criteria( file=nil )
+      @options.critera_file = file unless file == nil
       puts "Criteria file: #{@options.criteria_file}" if @@DEBUG
       unless @options.criteria_file == ""
         factory = AbstractCriteriaFactory.new
@@ -56,15 +64,15 @@ module VerifyInFiles
 
     # Get application parameters
     def get_params
-      @options = Options.new
+      @options ||= Options.new
       @options.parse_args
     end
 
     # Run rules against target file(s)
     def run
       self.get_params
-      @target = self.get_target_file_name
-      @top = self.get_criteria
+      @target ||= self.get_target_file_name
+      @top ||= self.get_criteria
 
       unless @top == nil
         result = true
