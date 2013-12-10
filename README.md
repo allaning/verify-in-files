@@ -1,10 +1,17 @@
-# Verify in Files
+# Verify In Files
 
 Check contents of files (e.g. test reports) based on rules defined by the user.
 
 Files can be tested against a set of rules from simple (e.g. text file has a
 given string) to complex (e.g. text file has string A and string B, or it has
 string C, etc.).
+
+## Applications
+
+Some possible uses of Verify In Files:
+
+- Verify contents of test reports or captured output
+- Check contents of web query response
 
 ## Verification Criteria (Rules)
 Rules may be specified as a heirarchy of AND and OR conditions containing one
@@ -43,7 +50,7 @@ order to pass.
 ```
 
 This contains two conditions at the top level--And and Or--each with nested
-rules within them.  In JSON, curly braces represent an object, which square
+rules within them.  In JSON, curly braces represent an object, while square
 brackets signify an array of objects.
 
 ## Usage
